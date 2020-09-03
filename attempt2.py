@@ -52,9 +52,8 @@ class Recipe(Food):
         self.append_to_list(self, list_Recipe)
         self.ingredients = []
         
-        #  calculating the calories per serving
-        # for aa in range(len(self.ingredients)):
-            
+       
+        
 
     def create_recipe(self, List_ingreds: list, List_amounts: list):
         self.ingredients.insert(0, List_ingreds)
@@ -65,9 +64,19 @@ class Recipe(Food):
             print(Ingred.name)
         for int in self.ingredients[1]:
             print(int)
+        print (self.calperserving)
+        
+
     def update_rating(self, ratingnew : int):
         self.rating = ratingnew
-
+         #  calculating the calories per serving
+        for aa in range(len(self.ingredients)):
+            print (len(self.ingredients))
+            self.calperserving = float
+            print(self.ingredients[[0], [aa]].cal)
+            # self.calperserving += (self.ingredients[[0], [aa]].cal/100 * self.ingredients[[1], [aa]])
+                #  sum (each ingredients in cal per gram x amount in grams listed in recipe)
+        print(self.calperserving)
     # def update_priority(self):
     #   a = self.rating
     
@@ -101,3 +110,4 @@ BananaKetchup = Recipe("Banana and Ketchup Sabzi", 230, "Breakfast", 0, 2, 0)
 BK = [banana, ketchup]
 BKAMOUNTS =  [100, 20]  ## need to replace this list creation via input, also no input for amount.
 BananaKetchup.create_recipe(BK, BKAMOUNTS)
+BananaKetchup.update_rating(2)
