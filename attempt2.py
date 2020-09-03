@@ -1,15 +1,18 @@
 # ---- README -----
 """
 cal = calories per 100g     
+
+need to find a way of creating List_ingreds and List_amounts.
+        maybe combining them into an array and inserting the whole array may be a better option.
  """
 
 # ---- IMPORTING LIBRARIES -----
-
+from array import *
 
 
 # ---- GLOBAL VARIABLES -----
-list_Ingred = []
-list_Recipe = []
+list_Ingred = [] # stock
+list_Recipe = [] # cookbook
 
 
 # ---- GUI_TKINTER -----
@@ -36,25 +39,38 @@ class Ingred(Food):
     
     def remove_ingred(self):
         self.remove_from_list(self, list_Ingred)
-            
+        
 
 class Recipe(Food):
-    def __init__(self, name: str, cal: int, mealtype = str, priority = 0, ):
+    def __init__(self, name: str, cal: int, mealtype: str, rating: int, servings: int, priority: int):
         super().__init__(name, cal)
-        self.priority = 0
+        self.priority = 0  # this may be an issue, if every object ends up having priority 0.
         self.mealtype = mealtype
+        self.rating = rating
+        self.servings = servings
+        self.calperserving = float
         self.append_to_list(self, list_Recipe)
         self.ingredients = []
+        
+        #  calculating the calories per serving
+        # for aa in range(len(self.ingredients)):
+            
 
-    def create_recipe(self, List):
-        for t in range(len(List)):
-            self.ingredients.append(List[t])
-        for Ingred in self.ingredients:
+    def create_recipe(self, List_ingreds: list, List_amounts: list):
+        self.ingredients.insert(0, List_ingreds)
+        self.ingredients.insert(1, List_amounts)
+            
+        # check if everything is working correctly
+        for Ingred in self.ingredients[0]:
             print(Ingred.name)
+        for int in self.ingredients[1]:
+            print(int)
+    def update_rating(self, ratingnew : int):
+        self.rating = ratingnew
 
-    def update_priority()
-        x = 
-        self.priority = x
+    # def update_priority(self):
+    #   a = self.rating
+    
 
 
 # ---- FUNCTIONS -----
@@ -81,6 +97,7 @@ banana.remove_ingred()
 for Ingred in list_Ingred:
     print (Ingred.name)
 
-BananaKetchup = Recipe("Banana and Ketchup Sabzi", 230, "Breakfast")
-BK = [banana, ketchup]  ## need to replace this list creation via input
-BananaKetchup.create_recipe(BK)
+BananaKetchup = Recipe("Banana and Ketchup Sabzi", 230, "Breakfast", 0, 2, 0)
+BK = [banana, ketchup]
+BKAMOUNTS =  [100, 20]  ## need to replace this list creation via input, also no input for amount.
+BananaKetchup.create_recipe(BK, BKAMOUNTS)
