@@ -13,6 +13,7 @@ rr, cc, pp ::: rating coeff, calperserving coeff, priceperserving  coeff
 
 # ---- IMPORTING LIBRARIES -----
 import tkinter as tk
+from tkinter import Label, Entry, Button, Canvas
 
 # ---- GLOBAL VARIABLES -----
 Stock = [] 
@@ -22,14 +23,16 @@ rr = 1.0
 cc = 1.0
 pp = 1.0
 
+# GUI SECTION:
+Title1: str = "Welcome to your digital  "
+Title2: str = "cookbook!"
+Subtitle1: str = "New Recipe Name: "
+# ---- FUNCTIONS -----
+def new_recipe():
+    recipename_input = Recipe_Name.get()
+    mealtype_input = Mealtype_Input.get()
 
-# ---- GUI_TKINTER -----
-
-window = tk.Tk()  # open window in tkinter
-
-
-
-window.mainloop() # close window in tkinter
+    recipename = Recipe(recipename_input, 0, mealtype_input )
 
 
 # ---- CLASSES DEFINED -----
@@ -60,7 +63,7 @@ class Ingred(Food):
         
 
 class Recipe(Food):
-    def __init__(self, name: str, cal: float, mealtype: str, rating: float, servings: int, priority: float):
+    def __init__(self, name: str, mealtype: str, rating: float, servings: int, priority: float, cal = 0.0):
         super().__init__(name, cal)
         self.priority = 0  # this may be an issue, if every object ends up having priority 0.
         self.mealtype = mealtype
@@ -97,7 +100,27 @@ class Recipe(Food):
         self.priority = (rr * self.rating) + (cc * self.calperserving) + (pp * self.priceperserving)
 
 
-# ---- FUNCTIONS -----
+# ---- GUI_TKINTER -----
+
+window = tk.Tk()  # open window in tkinter
+window.geometry("900x900")  # window initial size
+window.resizable(0,0)  # fixed window size
+window.eval('tk::PlaceWindow %s NW' % window.winfo_toplevel())  # window initial position
+window.configure(background = "black")
+
+
+Label (window, text= Title1, bg="black", fg="white", font = "CenturySchoolbook 64 italic").grid(row=0, column=0)
+Label (window, text= Title2, bg="black", fg="white", font = "CenturySchoolbook 64 italic").grid(row=1, column=0)
+Canvas (window, bg = "black", bd = "1", height = "1", width = "800").grid(row=2, column=0)
+Label (window, text= Subtitle1, bg="black", fg="white", font = "CenturySchoolbook 20 bold").grid(row=3, column=0)
+Recipe_Name = str()
+Mealtype_Input = str()
+Entry (textvariable = Recipe_Name , width = "30").grid(row = 4, column = 0)
+Entry (textvariable = Mealtype_Input, width = "30").grid(row = 4, column = 0)
+Confirm_name = Button(window, text = "Ok", width = 10, height = 1, command = new_recipe).grid(row = 5, column = 0)
+
+window.mainloop() # keep window open 
+
 
 
 
@@ -108,8 +131,8 @@ ketchup = Ingred("Ketchup", 50, 200, 3.99)
 banana = Ingred("Banana", 200, 200, 1.39)
 
 
-BananaKetchup = Recipe("Banana and Ketchup Sabzi", 230, "Breakfast", 0, 2, 0)
+BananaKetchup = Recipe("Banana and Ketchup Sabzi", "Breakfast", 0, 2, 0)
 BK = [banana, ketchup]
 BKAMOUNTS =  [100, 20]  ## need to replace this list creation via input, also no input for amount.
 BananaKetchup.create_recipe(BK, BKAMOUNTS)
-BananaKetchup.update_rating(12)
+BananaKetchup.update_rating(9)
